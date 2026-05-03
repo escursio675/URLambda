@@ -1,4 +1,5 @@
 import Url from "../models/url.model.js";
+import QRCode from "qrcode";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
 
@@ -30,4 +31,18 @@ export const getLongUrl = async (shortCode) =>{
     const longUrl = await Url.findOne({shortCode});
 
     return longUrl;
+};
+
+export const generateQRCode = async (shortCode) => {
+    const urlDoc = await Url.findOne({ shortCode });
+
+    if (!urlDoc) {
+        throw new Error("Resource not found!");
+    }
+
+    const shortUrl = urlDoc.shortUrl;
+
+    const qrCode = await QRCode.toDataURL(shortUrl);
+
+    return qrCode;
 };

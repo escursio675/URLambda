@@ -1,4 +1,4 @@
-import { createShortUrl, getLongUrl } from "../services/url.service.js";
+import { createShortUrl, getLongUrl, generateQRCode } from "../services/url.service.js";
 
 export const shortenUrl = async (req, res) =>{
     
@@ -38,4 +38,18 @@ export const redirectUrl = async (req, res) =>{
         return res.status(500).send("Internal server error");
     }
 
+};
+
+export const getQRCode = async (req, res) => {
+    try {
+        const { code } = req.params;
+
+        const qrCode = await generateQRCode(code);
+
+        return res.status(200).json({ qrCode });
+
+    } catch (err) {
+        console.log({error: err.message});
+        return res.status(500).send("Internal server error");
+    }
 };

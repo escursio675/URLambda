@@ -4,6 +4,7 @@ export default function Form(){
 
     const [inputURL, setinputURL] = useState("");
     const [outputURL, setoutputURL] = useState("");
+    const [qrCode, setQrCode] = useState("");
 
     const handleSubmit = async (event) =>{
         try{
@@ -33,6 +34,30 @@ export default function Form(){
 
     }
 
+    const handleGenerateQR = async () => {
+        try {
+            if (!outputURL) return; 
+
+            const code = outputURL.split('/').pop();
+
+            const response = await fetch(
+                `http://localhost:5000/api/v1/qrcode/${code}`
+            );
+
+            const data = await response.json();
+
+            if (!response.ok)
+                throw new Error(data.error || "Something went wrong");
+
+            setQrCode(data.qrCode);
+
+        } catch (err) {
+            console.log(`Error: ${err.message}`);
+            setQrCode(`Error: ${err.message}`);
+        }
+
+    }
+
 
     return(
         <div>
@@ -55,6 +80,14 @@ export default function Form(){
                 readOnly
                 value={outputURL}
                 className="border border-black w-lg"></input>
+
+                <button type="button" onClick={handleGenerateQR} disabled={!outputURL}
+                className="bg-green-500 text-white rounded-lg w-full"
+                >
+                    Generate QR Code
+                </button>
+
+                {qrCode && <img src={qrCode} alt="QR Code" className="w-40 h-40" />}
 
             </form>
         </div>
