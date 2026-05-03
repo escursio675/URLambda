@@ -10,7 +10,7 @@ export const shortenUrl = async (req, res) =>{
 
         const result = await createShortUrl(longUrl);
 
-        const shortUrl = `http://localhost:5000/${result.shortCode}`;
+        const shortUrl = result.shortUrl;
 
         return res.status(201).json({shortUrl});
 
