@@ -33,28 +33,37 @@ export default function Form(){
 
     }
 
-
     return(
-        <div>
-            <form onSubmit={handleSubmit}
-            className="flex flex-col gap-5 items-center">
+        /* The white card container with shadow and rounded corners */
+        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-center">
 
-                <h2>Submit your URL</h2>
+                <h2 className="text-2xl font-semibold text-gray-800 text-center w-full">
+                    Submit your URL
+                </h2>
 
-                <input type="text" placeholder="https://exampleurl.com"
-                value={inputURL}
-                onChange={(e) => setinputURL(e.target.value)}
-                className="border border-black w-lg"></input>
+                <input 
+                    type="text" 
+                    placeholder="https://exampleurl.com"
+                    value={inputURL}
+                    onChange={(e) => setinputURL(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
+                />
 
-                <button type="submit"
-                className="bg-[#547792] border border-white rounded-lg w-full">
+                <button 
+                    type="submit"
+                    className="w-full bg-[#547792] hover:bg-[#436077] text-white font-medium py-3 px-4 rounded-md transition-colors"
+                >
                     Generate URL
                 </button>
 
-                <input type="text" placeholder="https://generatedurl.com"
-                readOnly
-                value={outputURL}
-                className="border border-black w-lg"></input>
+                <input 
+                    type="text" 
+                    placeholder="https://generatedurl.com"
+                    readOnly
+                    value={outputURL}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md bg-gray-50 text-gray-600 focus:outline-none cursor-not-allowed"
+                />
 
             </form>
         </div>

@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* 1. Load the custom font file */
+@font-face {
+  font-family: 'Geist Pixel';
+  /* Update this URL if your file is named something different! */
+  src: url('/fonts/GeistPixel-Square.woff2') format('woff2'),
+       url('/fonts/GeistPixel-Square.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  /* 2. Override Tailwind's default sans-serif font with your new pixel font */
+  --font-sans: "Geist Pixel", ui-sans-serif, system-ui, sans-serif;
+
+  /* Keep the levitation animation we built earlier */
+  --animate-levitate: levitate 6s ease-in-out infinite;
+
+  @keyframes levitate {
+    0%, 100% {
+      transform: translateY(0px);
+      filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.05));
+    }
+    50% {
+      transform: translateY(-12px);
+      filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.1)); 
+    }
+  }
+}
