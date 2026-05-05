@@ -5,6 +5,20 @@ export default function Form(){
     const [inputURL, setinputURL] = useState("");
     const [outputURL, setoutputURL] = useState("");
     const [qrCode, setQrCode] = useState("");
+    const [copyState, setcopyState] = useState("Copy");
+
+    const handleCopy = async () =>{
+
+        try{
+            await navigator.clipboard.writeText(outputURL);
+            setcopyState("Copied!");
+            setTimeout(()=> setcopyState("Copy"), 8000);
+        }
+        catch(err){
+            console.log(err);
+            setcopyState("Error!");
+        }
+    }
 
     const handleSubmit = async (event) =>{
         try{
@@ -60,26 +74,43 @@ export default function Form(){
 
 
     return(
-        <div>
-            <form onSubmit={handleSubmit}
-            className="flex flex-col gap-5 items-center">
+        /* The white card container with shadow and rounded corners */
+        <div className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg border border-gray-100">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-center">
 
-                <h2>Submit your URL</h2>
+                <h2 className="text-2xl font-semibold text-gray-800 text-center w-full">
+                    Submit your URL
+                </h2>
 
-                <input type="text" placeholder="https://exampleurl.com"
-                value={inputURL}
-                onChange={(e) => setinputURL(e.target.value)}
-                className="border border-black w-lg"></input>
+                <input 
+                    type="text" 
+                    placeholder="https://exampleurl.com"
+                    value={inputURL}
+                    onChange={(e) => setinputURL(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all"
+                />
 
-                <button type="submit"
-                className="bg-[#547792] border border-white rounded-lg w-full">
+                <button 
+                    type="submit"
+                    className="w-full bg-[#547792] hover:bg-[#436077] text-white font-medium py-3 px-4 rounded-md transition-colors"
+                >
                     Generate URL
                 </button>
 
-                <input type="text" placeholder="https://generatedurl.com"
-                readOnly
-                value={outputURL}
-                className="border border-black w-lg"></input>
+                <div className="w-full flex gap-2">
+                    <input 
+                    type="text" 
+                    placeholder="https://generatedurl.com"
+                    readOnly
+                    value={outputURL}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-md bg-gray-50 text-gray-600 focus:outline-none cursor-not-allowed"
+                    />
+                    <button type="button"
+                    onClick={handleCopy}
+                    className="border border-gray-300 rounded-lg p-3 w-22 text-center text-sm font-semibold text-[#547792]">
+                        {copyState}
+                    </button>
+                </div>
 
                 <button type="button" onClick={handleGenerateQR} disabled={!outputURL}
                 className="bg-green-500 text-white rounded-lg w-full"
