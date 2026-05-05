@@ -1,18 +1,63 @@
-import Form from "../components/form"
+import Form from "../components/form";
+// 1. Import the new background
+import SoftAurora from "../components/SoftAurora";
+// 2. Import the new text animation component
+import TextType from "../components/TextType";
 
-export default function App(){
-    return(
-        /* Added 'font-sans antialiased' to ensure the pixel font renders perfectly across the whole app */
-        <div className="font-sans antialiased relative min-h-screen w-full flex items-center justify-center bg-[#fdfbf7] bg-[radial-gradient(#d6d3ce_1px,transparent_1px)] [background-size:20px_20px] overflow-hidden">
+export default function App() {
+    return (
+        <div className="font-sans antialiased relative min-h-screen w-full flex items-center justify-center bg-[#0a0a0a] overflow-hidden">
             
-            {/* The Glow Mask */}
-            <div className="absolute pointer-events-none inset-0 flex items-center justify-center bg-[#fdfbf7] [mask-image:radial-gradient(ellipse_at_center,transparent_30%,black)]"></div>
+            {/* The Soft Aurora Background */}
+            <div className="absolute inset-0 z-0">
+                <SoftAurora 
+                    speed={1.0}
+                    scale={1.5}
+                    brightness={1}
+                    color1="#f7f7f7"
+                    color2="#e100ff"
+                    noiseFrequency={2.5}
+                    noiseAmplitude={1}
+                    bandHeight={0.5}
+                    bandSpread={1}
+                    octaveDecay={0.1}
+                    layerOffset={0}
+                    colorSpeed={1}
+                    enableMouseInteraction
+                    mouseInfluence={0.25}
+                />
+            </div>
 
-            {/* The Form */}
+            {/* THE TYPING TEXT EFFECT */}
+            <div className="absolute top-16 w-full flex justify-center z-10 pointer-events-none">
+                {/* longer sentences stay centered */}
+                <div className="text-3xl md:text-4xl text-white font-bold tracking-widest text-center">
+                    <TextType 
+                        text={[
+                            "Welcome to URLambda", 
+                            "Shorten your links in seconds", 
+                            "Share with the world!"
+                        ]}
+                        typingSpeed={75}
+                        pauseDuration={1500}
+                        showCursor={true}
+                        cursorCharacter="_"
+                        deletingSpeed={50}
+                        variableSpeedEnabled={false}
+                        variableSpeedMin={60}
+                        variableSpeedMax={120}
+                        cursorBlinkDuration={0.5}
+                    />
+                </div>
+            </div>
+
+
+
+            {/* Your Form (Floating above the aurora) */}
             <div className="relative z-10 animate-levitate w-full max-w-md">
                 <Form />
             </div>
 
         </div>
-    )
+    );
 }

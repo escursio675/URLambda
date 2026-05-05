@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import { QrCode } from "lucide-react";
 export default function Form(){
 
     const [inputURL, setinputURL] = useState("");
@@ -79,7 +79,7 @@ export default function Form(){
             <form onSubmit={handleSubmit} className="flex flex-col gap-5 items-center">
 
                 <h2 className="text-2xl font-semibold text-gray-800 text-center w-full">
-                    Submit your URL
+                    Paste your URL below
                 </h2>
 
                 <input 
@@ -112,10 +112,23 @@ export default function Form(){
                     </button>
                 </div>
 
-                <button type="button" onClick={handleGenerateQR} disabled={!outputURL}
-                className="bg-green-500 text-white rounded-lg w-full"
+                <button
+                className="
+                    w-full rounded-2xl border border-white/40 
+                    bg-white/70 backdrop-blur-md
+                    px-5 py-3
+                    text-[#2b3445] font-medium
+                    shadow-md
+                    transition-all duration-300
+                    hover:bg-white/90
+                    hover:shadow-[0_0_20px_rgba(255,105,180,0.25)]
+                    hover:-translate-y-0.5
+                    active:scale-[0.98]
+                    flex items-center justify-center gap-2
+                "
                 >
-                    Generate QR Code
+                <QrCode size={18} />
+                Generate QR Code
                 </button>
 
                 {qrCode && <img src={qrCode} alt="QR Code" className="w-40 h-40" />}
