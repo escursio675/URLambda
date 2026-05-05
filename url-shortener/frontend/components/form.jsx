@@ -112,7 +112,7 @@ export default function Form(){
                     </button>
                 </div>
 
-                <button
+                <button type="button" onClick={handleGenerateQR} disabled={!outputURL}
                 className="
                     w-full rounded-2xl border border-white/40 
                     bg-white/70 backdrop-blur-md
