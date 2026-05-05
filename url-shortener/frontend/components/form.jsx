@@ -4,6 +4,20 @@ export default function Form(){
 
     const [inputURL, setinputURL] = useState("");
     const [outputURL, setoutputURL] = useState("");
+    const [copyState, setcopyState] = useState("Copy");
+
+    const handleCopy = async () =>{
+
+        try{
+            await navigator.clipboard.writeText(outputURL);
+            setcopyState("Copied!");
+            setTimeout(()=> setcopyState("Copy"), 8000);
+        }
+        catch(err){
+            console.log(err);
+            setcopyState("Error!");
+        }
+    }
 
     const handleSubmit = async (event) =>{
         try{
@@ -57,13 +71,20 @@ export default function Form(){
                     Generate URL
                 </button>
 
-                <input 
+                <div className="w-full flex gap-2">
+                    <input 
                     type="text" 
                     placeholder="https://generatedurl.com"
                     readOnly
                     value={outputURL}
                     className="w-full px-4 py-3 border border-gray-300 rounded-md bg-gray-50 text-gray-600 focus:outline-none cursor-not-allowed"
-                />
+                    />
+                    <button type="button"
+                    onClick={handleCopy}
+                    className="border border-gray-300 rounded-lg p-3 w-22 text-center text-sm font-semibold text-[#547792]">
+                        {copyState}
+                    </button>
+                </div>
 
             </form>
         </div>
