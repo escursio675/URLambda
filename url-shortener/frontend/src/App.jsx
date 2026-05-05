@@ -6,7 +6,7 @@ import TextType from "../components/TextType";
 
 export default function App() {
     return (
-        <div className="font-sans antialiased relative min-h-screen w-full flex items-center justify-center bg-[#0a0a0a] overflow-hidden">
+        <div className="font-sans antialiased relative min-h-screen w-full flex flex-col gap-12 items-center justify-center bg-[#0a0a0a] overflow-hidden">
             
             {/* The Soft Aurora Background */}
             <div className="absolute inset-0 z-0">
@@ -29,7 +29,7 @@ export default function App() {
             </div>
 
             {/* THE TYPING TEXT EFFECT */}
-            <div className="absolute top-16 w-full flex justify-center z-10 pointer-events-none">
+            <div className="relative w-full flex justify-center z-10 pointer-events-none px-4">
                 {/* longer sentences stay centered */}
                 <div className="text-3xl md:text-4xl text-white font-bold tracking-widest text-center">
                     <TextType 
