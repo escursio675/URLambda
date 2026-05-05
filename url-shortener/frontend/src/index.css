@@ -4,8 +4,8 @@
 @font-face {
   font-family: 'Geist Pixel';
   /* Update this URL if your file is named something different! */
-  src: url('/fonts/GeistPixel-Square.woff2') format('woff2'),
-       url('/fonts/GeistPixel-Square.ttf') format('truetype');
+  src: url('/fonts/GeistMono-Light.woff2') format('woff2'),
+       url('/fonts/GeistMono-Light.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
