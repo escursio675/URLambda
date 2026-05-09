@@ -1,3 +1,7 @@
+import { GoogleLogin } from '@react-oauth/google';
+import { useContext } from 'react';
+import { AuthContext } from '../store/auth/authContextProvider';
+
 import Form from "../components/form";
 // 1. Import the new background
 import SoftAurora from "../components/SoftAurora";
@@ -5,6 +9,9 @@ import SoftAurora from "../components/SoftAurora";
 import TextType from "../components/TextType";
 
 export default function App() {
+
+    const { authState, login, logout } = useContext(AuthContext);
+
     return (
         <div className="font-sans antialiased relative min-h-screen w-full flex flex-col gap-12 items-center justify-center bg-[#0a0a0a] overflow-hidden">
             
@@ -51,7 +58,73 @@ export default function App() {
                 </div>
             </div>
 
+            {/* AUTH SECTION */}
+            <div className="relative z-10">
 
+                {!authState?.token?(
+
+                    <GoogleLogin
+
+                        onSuccess={async (credentialResponse) => {
+
+                            try{
+
+                                const response = await fetch(
+                                    'http://localhost:5000/auth/google',
+                                    {
+                                        method: 'POST',
+
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+
+                                        body: JSON.stringify({
+                                            googleToken: credentialResponse.credential
+                                        })
+                                    }
+                                );
+
+                                const data = await response.json();
+                                login(data.token, data.user);
+
+                            } catch(err){
+
+                                console.log(err);
+
+                            }
+
+                        }}
+
+                        onError={() => {
+                            console.log('Login Failed');
+                    }}
+                    />
+                ) : (
+                    
+                    <div className="flex flex-col items-center gap-4">
+                        <p className="text-white text-lg font-semibold">
+                            Welcome, {authState?.user?.name}
+                        </p>
+                        <button
+                            onClick={() =>
+                                window.open('/dashboard', '_blank')
+                            }
+                            className="px-6 py-2 rounded-lg bg-purple-600 text-white font-semibold hover:scale-105 transition"
+                            >
+                                Go to Dashboard
+                            </button>
+                        <button
+                            onClick={logout}
+                            className="px-6 py-2 rounded-lg bg-white text-black font-semibold hover:scale-105 transition"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                    
+                )}
+            </div>
+
+            
 
             {/* Your Form (Floating above the aurora) */}
             <div className="relative z-10 animate-levitate w-full max-w-md">

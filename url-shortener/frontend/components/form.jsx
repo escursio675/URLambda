@@ -1,5 +1,9 @@
-import { useState } from "react"
+import useApi from "../hooks/api/useApi";
+
+import { useState, useEffect } from "react"
 import { QrCode } from "lucide-react";
+
+import { useSearchParams } from "react-router-dom";
 
 export default function Form(){
 
@@ -7,6 +11,21 @@ export default function Form(){
     const [outputURL, setoutputURL] = useState("");
     const [qrCode, setQrCode] = useState("");
     const [copyState, setcopyState] = useState("Copy");
+    const { request } = useApi();
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+
+    const existingUrl =
+        searchParams.get('url');
+
+    if(existingUrl){
+
+        setoutputURL(existingUrl);
+
+    }
+
+    }, []);
 
     const handleCopy = async () =>{
         try{
@@ -23,8 +42,8 @@ export default function Form(){
     const handleSubmit = async (event) =>{
         try{
             event.preventDefault();
-            const response = await fetch(
-                "http://localhost:5000/api/v1/shorten",
+            const data = await request(
+                "/api/v1/shorten",
                 {
                     method: "POST",
                     headers: {
@@ -33,11 +52,6 @@ export default function Form(){
                     body: JSON.stringify({longUrl: inputURL})
                 }
             );
-
-            const data = await response.json();
-
-            if(!response.ok)
-                throw new Error(data.error || "Something went wrong");
 
             setoutputURL(data.shortUrl);
             
