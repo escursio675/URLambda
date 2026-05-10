@@ -69,7 +69,7 @@ export default function Form(){
             const code = outputURL.split('/').pop();
 
             const response = await fetch(
-                `http://localhost:5000/api/v1/qrcode/${code}`
+                `${import.meta.env.VITE_API_URL}/api/v1/qrcode/${code}`
             );
 
             const data = await response.json();

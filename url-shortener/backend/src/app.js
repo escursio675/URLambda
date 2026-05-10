@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import express from 'express';
 import cors from 'cors';
 
@@ -11,7 +13,14 @@ import protectedRoutes from './routes/protected.routes.js';
 
 const app = express();
 
-app.use(cors());
+app.set('trust proxy', 1);
+
+const corsOptions = {
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use((req, res, next) => {
 

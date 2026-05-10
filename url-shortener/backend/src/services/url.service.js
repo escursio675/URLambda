@@ -1,7 +1,7 @@
 import Url from "../models/url.model.js";
 import QRCode from "qrcode";
 
-const BASE_URL = process.env.BASE_URL || "http://localhost:5000";
+const BASE_URL = process.env.BASE_URL;
 
 const generateShortCode = () =>{
     return Math.random().toString(36).substring(2, 8);
