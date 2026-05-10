@@ -1,4 +1,4 @@
-import { createShortUrl, getLongUrl, generateQRCode } from "../services/url.service.js";
+import { createShortUrl, getLongUrl, generateQRCode, getUrlsByUser, deleteUrlByUser } from "../services/url.service.js";
 
 export const shortenUrl = async (req, res) =>{
     
@@ -8,7 +8,7 @@ export const shortenUrl = async (req, res) =>{
         if(!longUrl)
             return res.status(400).json({error: "URL is required"});
 
-        const result = await createShortUrl(longUrl);
+        const result = await createShortUrl(longUrl, req.user?.userId || null);
 
         const shortUrl = result.shortUrl;
 
@@ -52,4 +52,63 @@ export const getQRCode = async (req, res) => {
         console.log({error: err.message});
         return res.status(500).send("Internal server error");
     }
+};
+
+export const getUserUrls = async (req, res) => {
+
+    try {
+
+        const urls = await getUrlsByUser(
+            req.user.userId
+        );
+
+        return res.status(200).json({
+            urls
+        });
+
+    } catch(err){
+
+        console.error(err.message);
+
+        return res.status(500).json({
+            error: err.message
+        });
+
+    }
+
+};
+
+export const deleteUserUrl = async (req, res) => {
+
+    try {
+
+        const { id } = req.params;
+
+        const deletedUrl = await deleteUrlByUser(
+            id,
+            req.user.userId
+        );
+
+        if(!deletedUrl){
+
+            return res.status(404).json({
+                error: 'URL not found'
+            });
+
+        }
+
+        return res.status(200).json({
+            success: true
+        });
+
+    } catch(err){
+
+        console.error(err.message);
+
+        return res.status(500).json({
+            error: err.message
+        });
+
+    }
+
 };

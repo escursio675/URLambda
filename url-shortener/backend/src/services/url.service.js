@@ -8,7 +8,7 @@ const generateShortCode = () =>{
     //create a 6-length short string code
 };
 
-export const createShortUrl = async (longUrl) =>{
+export const createShortUrl = async (longUrl, userId=null) =>{
     if(!(longUrl.startsWith('http://') || longUrl.startsWith('https://')))
         throw new Error("Invalid URL!");
 
@@ -20,7 +20,8 @@ export const createShortUrl = async (longUrl) =>{
         {
             shortCode,
             shortUrl,
-            longUrl
+            longUrl,
+            user: userId
         }
     );
 
@@ -45,4 +46,26 @@ export const generateQRCode = async (shortCode) => {
     const qrCode = await QRCode.toDataURL(shortUrl);
 
     return qrCode;
+};
+
+export const getUrlsByUser = async (userId) => {
+
+    return await Url.find({
+        user: userId
+    }).sort({
+        createdAt: -1
+    });
+
+};
+
+export const deleteUrlByUser = async (
+    urlId,
+    userId
+) => {
+
+    return await Url.findOneAndDelete({
+        _id: urlId,
+        user: userId
+    });
+
 };
