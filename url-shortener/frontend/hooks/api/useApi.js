@@ -1,20 +1,13 @@
-import {
-    useState,
-    useContext
-} from 'react';
+import { useState, useContext } from 'react';
 
-import {
-    AuthContext
-} from '../../store/auth/authContextProvider';
+import { AuthContext } from '../../store/auth/authContextProvider';
 
 const BASE_URL = 'http://localhost:5000';
 
 export default function useApi(){
 
     const [loading, setLoading] = useState(false);
-
     const [error, setError] = useState(null);
-
     const {
         authState,
         logout
@@ -24,11 +17,8 @@ export default function useApi(){
         endpoint,
         options = {}
     ) => {
-
         setLoading(true);
-
         setError(null);
-
         try {
 
             const headers = {
@@ -36,10 +26,8 @@ export default function useApi(){
             };
 
             if (authState?.token) {
-
                 headers.Authorization =
                     `Bearer ${authState.token}`;
-
             }
 
             const response = await fetch(
@@ -55,9 +43,7 @@ export default function useApi(){
             if (!response.ok) {
 
                 if (response.status === 401) {
-
                     logout();
-
                 }
 
                 throw new Error(
@@ -75,9 +61,7 @@ export default function useApi(){
             throw err;
 
         } finally {
-
             setLoading(false);
-
         }
 
     };
