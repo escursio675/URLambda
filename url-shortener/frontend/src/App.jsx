@@ -15,7 +15,7 @@ export default function App() {
     return (
         <div className="font-sans antialiased relative min-h-screen w-full flex flex-col gap-12 items-center justify-center bg-[#0a0a0a] overflow-hidden">
             
-            {/* The Soft Aurora Background */}
+            {/* Soft Aurora background from ReactBits available @https://reactbits.dev/backgrounds/soft-aurora*/}
             <div className="absolute inset-0 z-0">
                 <SoftAurora 
                     speed={1.0}
@@ -35,7 +35,7 @@ export default function App() {
                 />
             </div>
 
-            {/* THE TYPING TEXT EFFECT */}
+            {/* Text type effect from ReactBits */}
             <div className="relative w-full flex justify-center z-10 pointer-events-none px-4">
                 {/* longer sentences stay centered */}
                 <div className="text-3xl md:text-4xl text-white font-bold tracking-widest text-center">
@@ -58,7 +58,7 @@ export default function App() {
                 </div>
             </div>
 
-            {/* AUTH SECTION */}
+            {/* Authentication Section*/}
             <div className="relative z-10">
 
                 {!authState?.token?(
@@ -100,7 +100,7 @@ export default function App() {
                     }}
                     />
                 ) : (
-                    
+                    {/* User Display section */}
                     <div className="flex flex-col items-center gap-4">
                         <p className="text-white text-lg font-semibold">
                             Welcome, {authState?.user?.name}
@@ -126,7 +126,7 @@ export default function App() {
 
             
 
-            {/* Your Form (Floating above the aurora) */}
+            {/* Floating window UI*/}
             <div className="relative z-10 animate-levitate w-full max-w-md">
                 <Form />
             </div>
