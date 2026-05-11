@@ -25,6 +25,16 @@ The architecture emphasizes:
 
 The application follows a Layered Client-Server Architecture combined with Service-Oriented Backend Structure
 
+## 2.1 Design Patterns Applied
+
+To ensure maintainability and adherence to Software Engineering principles, the following patterns are utilized:
+
+| Pattern | Implementation |
+| --- | --- |
+| **MVC (Modified)** | Used in the backend via Models, Express Routes (View proxy), and Controllers. |
+| **Service Pattern** | Business logic is abstracted into a dedicated Service layer to keep controllers lean. |
+| **Singleton** | The MongoDB connection instance is shared across the application runtime. |
+
 ## Architectural Layers
 
 ```
