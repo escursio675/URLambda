@@ -101,7 +101,7 @@ Database Layer (MongoDB + Mongoose)
 # 5. Frontend Directory Structure
 
 ```
-frontend/
+url-shortener/frontend/
 ├── components/
 ├── hooks/
 ├── routes/
@@ -185,7 +185,7 @@ Responsibilities:
 # 10. Backend Directory Structure
 
 ```
-backend/src/
+url-shortener/backend/src/
 ├── app.js
 ├── server.js
 ├── config/
